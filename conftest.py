@@ -1,10 +1,13 @@
 import pytest
+import selene
+
+
 
 
 
 @pytest.fixture(scope='function')
 def setup_browser(request):
-    from selenium.webdriver.chrome.options import Options
+    from selene.webdriver.chrome.options import Options
     options = Options()
     selenoid_capabilities = {
         "browserName": "chrome",
