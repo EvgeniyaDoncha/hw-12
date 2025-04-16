@@ -4,7 +4,6 @@ import selene
 
 
 
-
 @pytest.fixture(scope='function')
 def setup_browser(request):
     from selene.webdriver.chrome.options import Options
