@@ -7,7 +7,6 @@ from selenium.webdriver.chrome.service import Service
 
 
 
-
 @pytest.fixture(scope='function')
 def setup_browser(request):
 
@@ -32,7 +31,12 @@ def setup_browser(request):
 
     from selene import Browser
     from selene import Config
+
+
     browser = Browser(Config(driver))
     yield browser
 
-    browser.quit()
+    from utils import attach
+    attach.add_screenshot(browser)
+    attach.add_logs(browser)
+    attach.add_html(browser)
