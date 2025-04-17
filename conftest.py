@@ -1,6 +1,6 @@
 import pytest
-from selenium import webdriver
 
+from selenium import webdriver
 
 
 from selenium.webdriver.chrome.service import Service
@@ -15,7 +15,7 @@ def setup_browser(request):
     selenoid_capabilities = {
         "browserName": "chrome",
         "browserVersion": "100.0",
-        "selenoid:options": {
+        "selenoid:options":{
             "enableVNC": True,
             "enableVideo": True
         }
@@ -29,14 +29,33 @@ def setup_browser(request):
 
   
 
-    from selene import Browser
-    from selene import Config
+    #from selene import Browser
+    #from selene import Config
 
 
-    browser = Browser(Config(driver))
+    #browser = Browser(Config(driver))
+    #yield browser
+
+    from selene import Browser, Config
+    from selenium import webdriver
+
+    # Создание экземпляра драйвера
+    driver = webdriver.Chrome()  # Убедитесь, что у вас установлен ChromeDriver
+
+    # Настройка конфигурации
+    config = Config(driver=driver)  # Передаем созданный драйвер в Config
+
+    # Создание браузера
+    browser = Browser(config)
+
+    # Ваш код для работы с браузером
     yield browser
+
+    # Закрытие браузера
+    browser.quit()
 
     from utils import attach
     attach.add_screenshot(browser)
     attach.add_logs(browser)
     attach.add_html(browser)
+    attach.add_video(browser)
