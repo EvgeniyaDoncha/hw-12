@@ -1,4 +1,12 @@
 import pytest
+from selenium import webdriver
+
+
+
+from selenium.webdriver.chrome.service import Service
+
+
+
 
 @pytest.fixture(scope='function')
 def setup_browser(request):
@@ -14,11 +22,13 @@ def setup_browser(request):
         }
     }
     options.capabilities.update(selenoid_capabilities)
-    from selene.support import webdriver
+    #from selene.support import webdriver
     driver = webdriver.Remote(
         command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
         options=options
     )
+
+  
 
     from selene import Browser
     from selene import Config
